@@ -1,11 +1,13 @@
-import * as React from 'react';
-import MainContainer from './navigation/MainContainer';
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import BottomTabNavigator from './navigation/TabNavigator';
 
-function App(){
-  return(
-    <MainContainer />
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <StatusBar />
+      <BottomTabNavigator />
+    </SafeAreaProvider>
   );
 }
-export default App;
-
-// testing nav

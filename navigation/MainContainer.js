@@ -1,19 +1,20 @@
-import * as React from 'react';
+/*import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
 // Screens
-import HomeScreen from './screens/Home';
+//import Home from './screens/Home';
 //import DetailsScreen from '/screens/Details';
-import SettingsScreen from './screens/Settings';
-import CategoriesScreen from './screens/Categories';
+import Settings from './screens/Settings';
+import Categories from './screens/Categories';
+import { MainStackNavigator } from './StackNavigator';
 
 
 // Screens declared below so I can see icons in bottom Nav.
-const homeScreen = 'Home';
-const categoriesScreen = 'Categories';
-const settingsScreen = 'Settings';
+const home = 'Home';
+const categories= 'Categories';
+const settings = 'Settings';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,10 +46,11 @@ export default function MainContainer(){
             }}
             
             >
-                <Tab.Screen name={'Home'} component={HomeScreen} />
-                <Tab.Screen name={'Categories'} component={CategoriesScreen} />
-                <Tab.Screen name={'Settings'} component={SettingsScreen} />
+                <Tab.Screen name='Home' component={MainStackNavigator} />
+                <Tab.Screen name='Categories' component={Categories} />
+                <Tab.Screen name='Settings' component={Settings} />
         </Tab.Navigator>
      </NavigationContainer>
-    )
-}
+    );
+};
+*/

@@ -8,5 +8,5 @@ export default function ToDoItem({item, pressHandler}) {
         <TouchableOpacity onPress={() => pressHandler(item.key)}>
             <Text style={globalStyles.item}>{item.text} </Text>
         </TouchableOpacity>
-    )
+    );
 }
