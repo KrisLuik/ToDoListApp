@@ -42,6 +42,7 @@ const BottomTabNavigator = () => {
                 labelStyle: {paddingBottom: 10, fontSize: 10 },
                 style: {padding: 10, height: 70}
             }}     
+            // Need to leave tab.screen as Home to be able to see icons.
             >
       <Tab.Screen name='Home' component={MainStackNavigator} />
       <Tab.Screen name='Categories' component={Categories} />
