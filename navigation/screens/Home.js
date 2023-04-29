@@ -38,19 +38,19 @@ const Home = ({ navigation }) => {
         title="High Priority"
         tasks={highPriorityTasks}
         onAddPress={addHighPriorityTask}
-        onViewAllPress={() => viewAllTasks('High')}
+        onViewAllPress={() => Details('High')}
       />
       <PriorityCard
         title="Medium Priority"
         tasks={mediumPriorityTasks}
         onAddPress={addMediumPriorityTask}
-        onViewAllPress={() => viewAllTasks('Medium')}
+        onViewAllPress={() => Details('Medium')}
       />
       <PriorityCard
         title="Low Priority"
         tasks={lowPriorityTasks}
         onAddPress={addLowPriorityTask}
-        onViewAllPress={() => viewAllTasks('Low')}
+        onViewAllPress={() => Details('Low')}
       />
       <Button
         title='go to details screen'
