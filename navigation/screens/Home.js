@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet, FlatList, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
+import { Button, View, Text, StyleSheet, FlatList, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
 import { globalStyles } from '../../styles/Global';
 import PriorityCard from '../../shared/PriorityCard';
 //import AddToDo from '../../components/AddItem';
@@ -31,9 +31,11 @@ const Home = ({ navigation }) => {
     };
   
   return (
-    <View style={globalStyles.container}>
+
+    //<Text>Home screen container </Text> -> this text moved from below <Header /> for testing purposes.
+    <ScrollView>
+   <View style={globalStyles.container}>
       <Header />
-      <Text>This is the home screen</Text>
       <PriorityCard
         title="High Priority"
         tasks={highPriorityTasks}
@@ -57,6 +59,7 @@ const Home = ({ navigation }) => {
         onPress={() => navigation.navigate('Details')}
       />
     </View>
+    </ScrollView>
   );
 };
 

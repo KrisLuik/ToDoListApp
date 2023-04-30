@@ -12,7 +12,7 @@ const Details= ({route, navigation}) =>{
     );
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>{priority} Tasks</Text>
+        <Text style={styles.title}>{priority} Priority</Text>
         <FlatList
           data={tasks}
           renderItem={renderItem}
