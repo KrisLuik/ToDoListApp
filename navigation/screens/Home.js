@@ -7,59 +7,54 @@ import PriorityCard from '../../shared/PriorityCard';
 import Header from '../../components/Header';
 
 const Home = ({ navigation }) => {
-    const [highPriorityTasks, setHighPriorityTasks] = useState([]);
-    const [mediumPriorityTasks, setMediumPriorityTasks] = useState([]);
-    const [lowPriorityTasks, setLowPriorityTasks] = useState([]);
-  
-    const addHighPriorityTask = (task) => {
-      setHighPriorityTasks([...highPriorityTasks, task]);
-    };
-  
-    const addMediumPriorityTask = (task) => {
-      setMediumPriorityTasks([...mediumPriorityTasks, task]);
-    };
-  
-    const addLowPriorityTask = (task) => {
-      setLowPriorityTasks([...lowPriorityTasks, task]);
-    };
-  
-    const Details = (priority) => {
-      navigation.navigate('Details', {
-        tasks: priority === 'High' ? highPriorityTasks : priority === 'Medium' ? mediumPriorityTasks : lowPriorityTasks,
-        priority,
-      });
-    };
-  
-  return (
 
-    //<Text>Home screen container </Text> -> this text moved from below <Header /> for testing purposes.
+  const [highPriorityTasks, setHighPriorityTasks] = useState([]);
+  const [mediumPriorityTasks, setMediumPriorityTasks] = useState([]);
+  const [lowPriorityTasks, setLowPriorityTasks] = useState([]);
+
+  const addHighPriorityTask = (task) => {
+    setHighPriorityTasks([...highPriorityTasks, task]);
+  };
+
+  const addMediumPriorityTask = (task) => {
+    setMediumPriorityTasks([...mediumPriorityTasks, task]);
+  };
+
+  const addLowPriorityTask = (task) => {
+    setLowPriorityTasks([...lowPriorityTasks, task]);
+  };
+
+  const Details = (priority) => {
+    navigation.navigate('Details', {
+      tasks: priority === 'High' ? highPriorityTasks : priority === 'Medium' ? mediumPriorityTasks : lowPriorityTasks,
+      priority,
+    });
+  };
+
+  return (
+    <View style={globalStyles.container}>
     <ScrollView>
-   <View style={globalStyles.container}>
-      <Header />
-      <PriorityCard
-        title="High Priority"
-        tasks={highPriorityTasks}
-        onAddPress={addHighPriorityTask}
-        onViewAllPress={() => Details('High')}
-      />
-      <PriorityCard
-        title="Medium Priority"
-        tasks={mediumPriorityTasks}
-        onAddPress={addMediumPriorityTask}
-        onViewAllPress={() => Details('Medium')}
-      />
-      <PriorityCard
-        title="Low Priority"
-        tasks={lowPriorityTasks}
-        onAddPress={addLowPriorityTask}
-        onViewAllPress={() => Details('Low')}
-      />
-      <Button
-        title='go to details screen'
-        onPress={() => navigation.navigate('Details')}
-      />
-    </View>
+        <Header />
+        <PriorityCard
+          title="High Priority"
+          tasks={highPriorityTasks}
+          onAddPress={addHighPriorityTask}
+          onViewAllPress={() => Details('High')}
+        />
+        <PriorityCard
+          title="Medium Priority"
+          tasks={mediumPriorityTasks}
+          onAddPress={addMediumPriorityTask}
+          onViewAllPress={() => Details('Medium')}
+        />
+        <PriorityCard
+          title="Low Priority"
+          tasks={lowPriorityTasks}
+          onAddPress={addLowPriorityTask}
+          onViewAllPress={() => Details('Low')}
+        />
     </ScrollView>
+    </View>
   );
 };
 

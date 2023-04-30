@@ -3,12 +3,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-
-// Screens
-//import Home from './screens/Home';
-//import DetailsScreen from '/screens/Details';
-import Settings from './screens/Settings';
-import Categories from './screens/Categories';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const home = 'Home';
 const categories = 'Categories';
@@ -35,14 +30,11 @@ const BottomTabNavigator = () => {
                         }
                         return <IonIcons name={iconName} size={size} color={color} />
                     },
+                    tabBarStyle: { backgroundColor: '#6f96e9', height: 92, paddingTop: 12},
+                    tabBarActiveTintColor: 'navy',
+                    tabBarInactiveTintColor: 'white',
+                    tabBarLabelStyle: { paddingBottom: 7, fontSize: 12 }
                 })}
-                tabBarOptions={{
-                    activeTintColor: 'black',
-                    inactiveTintColor: 'grey',
-                    labelStyle: { paddingBottom: 10, fontSize: 10 },
-                    style: { padding: 10, height: 70 }
-                }}
-            // Need to leave tab.screen as Home to be able to see icons.
             >
                 <Tab.Screen name='Home' component={HomeStackNavigator} />
                 <Tab.Screen name='Categories' component={CategoriesStackNavigator} />
@@ -53,5 +45,3 @@ const BottomTabNavigator = () => {
 }
 
 export default BottomTabNavigator;
-
-

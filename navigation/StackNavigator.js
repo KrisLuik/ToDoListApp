@@ -3,7 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './screens/Home';
-import Details from './screens/Details'; // Updated import path
+import Details from './screens/Details';
 import Categories from './screens/Categories';
 import Settings from './screens/Settings';
 
@@ -14,22 +14,24 @@ const SettingsStack = createStackNavigator();
 const HomeStackNavigator = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name='Home' component={Home} options={{headerShown: false}}/>
+      <HomeStack.Screen name='HomeStack' component={Home} options={{headerShown: false}}/>
       <HomeStack.Screen name='Details' component={Details} />
     </HomeStack.Navigator>
   );
 };
+
 const CategoriesStackNavigator = () => {
   return (
     <CategoriesStack.Navigator>
-      <CategoriesStack.Screen name='Categories' component={Categories} options={{headerShown: false}}/>
+      <CategoriesStack.Screen name='CategoriesStack' component={Categories} options={{headerShown: false}}/>
     </CategoriesStack.Navigator>
   );
 };
+
 const SettingsStackNavigator = () => {
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name='Settings' component={Settings} options={{headerShown: false}}/>
+      <SettingsStack.Screen name='SettingsStack' component={Settings} options={{headerShown: false}}/>
     </SettingsStack.Navigator>
   );
 };

@@ -89,7 +89,7 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                 <TouchableOpacity
                     onPress={onViewAllPress}>
                     <View style={styles.arrowIconStyle}>
-                        <Icon name="chevron-forward" size={24} color='grey'/>
+                        <Icon name="chevron-forward" size={24} color='grey' />
                     </View>
                 </TouchableOpacity>
             </View>
@@ -109,16 +109,16 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                                 onChangeText={setInputValue}
                             />
                             <View style={styles.modalButtonStyle}>
-                                <Button title="Add" onPress={handleSubmit} />
+                                <Button title="Add" onPress={handleSubmit} color='white' />
                             </View>
                             <View style={styles.modalButtonStyle}>
-                                <Button title="Cancel" onPress={closeModal} />
+                                <Button title="Cancel" onPress={closeModal} color='white' />
                             </View>
                         </View>
                     </View>
                 </Modal>
             </View>
-            
+
         </View>
     );
 };
@@ -179,14 +179,12 @@ const styles = StyleSheet.create({
         //shadowColor: 'grey',
     },
     modalButtonStyle: {
+        paddingTop: 6,
         margin: 3,
         height: 50,
         width: 303,
-        borderWidth: 5,
-        borderRadius: 10,
-        borderColor: '#8c51ff',
-        backgroundColor: '#8c51ff',
-        // add colour 
+        borderRadius: 15,
+        backgroundColor: '#6f96e9',
     },
     arrowIconStyle: {
         alignItems: 'flex-end',
