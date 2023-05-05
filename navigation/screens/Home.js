@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet, FlatList, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
 import { globalStyles } from '../../styles/Global';
 import PriorityCard from '../../shared/PriorityCard';
-//import AddToDo from '../../components/AddItem';
-//import DeleteItem from '../../components/DeleteItem';
 import Header from '../../components/Header';
 
 const Home = ({ navigation }) => {
@@ -31,29 +29,48 @@ const Home = ({ navigation }) => {
     });
   };
 
+  const handleCheckboxPress = (taskKey, priority) => {
+    setTimeout(() => {
+      if (priority === 'High') {
+        const newTasks = highPriorityTasks.filter((_, index) => index !== taskKey);
+        setHighPriorityTasks(newTasks);
+      } else if (priority === 'Medium') {
+        const newTasks = mediumPriorityTasks.filter((_, index) => index !== taskKey);
+        setMediumPriorityTasks(newTasks);
+      } else if (priority === 'Low') {
+        const newTasks = lowPriorityTasks.filter((_, index) => index !== taskKey);
+        setLowPriorityTasks(newTasks);
+      }
+    }, 200)
+  
+  };
+
   return (
     <View style={globalStyles.container}>
-    <ScrollView>
+      <ScrollView>
         <Header />
         <PriorityCard
           title="High Priority"
           tasks={highPriorityTasks}
           onAddPress={addHighPriorityTask}
           onViewAllPress={() => Details('High')}
+          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'High')}
         />
         <PriorityCard
           title="Medium Priority"
           tasks={mediumPriorityTasks}
           onAddPress={addMediumPriorityTask}
           onViewAllPress={() => Details('Medium')}
+          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Medium')}
         />
         <PriorityCard
           title="Low Priority"
           tasks={lowPriorityTasks}
           onAddPress={addLowPriorityTask}
           onViewAllPress={() => Details('Low')}
+          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Low')}
         />
-    </ScrollView>
+      </ScrollView>
     </View>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Modal, StyleSheet, Button, LayoutAnimation } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, LayoutAnimation } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-//import { globalStyles } from '../styles/Global';
 import { Ionicons } from '@expo/vector-icons';
-import { CheckBox } from 'react-native-elements';
+import CustomCheckbox from './Checkbox';
+import TaskModal from './TaskModal';
 
 const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPress }) => {
     const [expanded, setExpanded] = useState(false);
@@ -28,17 +28,20 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
         setInputValue('');
         closeModal();
     };
+    const handleCheckboxPress = (taskKey,priority) => {
+        onCheckboxPress(taskKey, priority);
+    };
 
     const displayedTasks = expanded ? tasks : tasks.slice(0, 3);
 
     const priorityColor = (title) => {
         switch (title) {
             case 'High Priority':
-                return { backgroundColor: 'rgba(254, 40, 62, 0.5)' }; // Red
+                return { backgroundColor: 'rgba(249, 23, 43, 1) ' }; // Red 
             case 'Medium Priority':
-                return { backgroundColor: 'rgba(255, 233, 32, 0.5)' }; // Yellow
+                return { backgroundColor: 'rgba(250,185,0, 1)' }; // Yellow  
             case 'Low Priority':
-                return { backgroundColor: 'rgba(4, 222, 113, 0.5)' }; // Green
+                return { backgroundColor: 'rgba(82,196,26,1)' }; // Green 
             default:
                 return {};
         }
@@ -47,11 +50,11 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
     const priorityContainerColor = (title) => {
         switch (title) {
             case 'High Priority':
-                return { backgroundColor: 'rgba(254, 40, 62, 0.2)' }; // Pastel Red
+                return { backgroundColor: 'rgba(255,24,12, 0.1)' }; // Pastel Red
             case 'Medium Priority':
-                return { backgroundColor: 'rgba(255, 233, 32, 0.2)' }; // Pastel Yellow
+                return { backgroundColor: 'rgba(250,172,20, 0.1)' }; // Pastel Yellow 
             case 'Low Priority':
-                return { backgroundColor: 'rgba(4, 222, 113, 0.2)' }; // Pastel Green
+                return { backgroundColor: 'rgba(82,196,26, 0.1)' }; // Pastel Green
             default:
                 return {};
         }
@@ -72,15 +75,15 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                         </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
-                <View style={styles.dropdownTextStyle}>
+                <View>
                     {displayedTasks.map((task, index) => (
                         <View key={index}>
-                            <CheckBox
-                                title={task}
-                                containerStyle={styles.checkboxContainer}
-                                textStyle={styles.dropdownTextStyle}
-                                checked={task.checked}
-                                onPress={() => onCheckboxPress(task)}
+                            <CustomCheckbox
+                                task={task}
+                                taskKey={index}
+                                priority={title}
+                                isChecked={task.isChecked}
+                                onCheckboxPress={handleCheckboxPress}
                             />
                             <View style={styles.divider} />
                         </View>
@@ -89,34 +92,18 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                 <TouchableOpacity
                     onPress={onViewAllPress}>
                     <View style={styles.arrowIconStyle}>
-                        <Icon name="chevron-forward" size={24} color='grey' />
+                        <Icon name="chevron-forward" size={24} color='#5C5D67' />
                     </View>
                 </TouchableOpacity>
             </View>
-
             <View>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Enter task"
-                                value={inputValue}
-                                onChangeText={setInputValue}
-                            />
-                            <View style={styles.modalButtonStyle}>
-                                <Button title="Add" onPress={handleSubmit} color='white' />
-                            </View>
-                            <View style={styles.modalButtonStyle}>
-                                <Button title="Cancel" onPress={closeModal} color='white' />
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
+                <TaskModal
+                    modalVisible={modalVisible}
+                    closeModal={closeModal}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    handleSubmit={handleSubmit}
+                />
             </View>
 
         </View>
@@ -124,86 +111,10 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
 };
 
 const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalView: {
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderRadius: 10,
-        borderWidth: 1,
-        //width: '80%',
-        width: 300,
-        marginBottom: 10,
-    },
-    cardTitleContainer: {
-        paddingLeft: 20,
-        paddingTop: 40,
-    },
-    button: {
-        borderRadius: 8,
-        alignItems: 'stretch',
-        justifyContent: 'left',
-        elevation: 20,
-        height: 38,
-    },
-    buttonTextStyle: {
-        color: 'white',
-        fontSize: 17,
-        fontWeight: 'bold',
-        paddingBottom: 4
-    },
-
-    dropdownContainer: {
-        backgroundColor: 'blue',
-        borderRadius: 3,
-
-    },
     priorityContainer: {
         backgroundColor: 'white',
         margin: 15,
         borderRadius: 8,
-        //shadowOffset: 15,
-        //shadowRadius: 3,
-        //shadowOpacity: 0.3,
-        //shadowColor: 'grey',
-    },
-    modalButtonStyle: {
-        paddingTop: 6,
-        margin: 3,
-        height: 50,
-        width: 303,
-        borderRadius: 15,
-        backgroundColor: '#6f96e9',
-    },
-    arrowIconStyle: {
-        alignItems: 'flex-end',
-        paddingTop: 4,
-        paddingRight: 6,
-        paddingBottom: 6
-    },
-    checkboxContainer: {
-        backgroundColor: 'transparent',
-        borderWidth: 0,
-        padding: 3,
-        marginLeft: 7,
-        marginRight: 0,
-    },
-    divider: {
-        height: 1,
-        backgroundColor: 'grey',
-        marginLeft: 10,
-        marginRight: 10,
     },
     titlePlusContainer: {
         flexDirection: 'row',
@@ -212,12 +123,43 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingLeft: 11
     },
+    buttonTextStyle: {
+        color: 'white',
+        fontSize: 17,
+        fontWeight: 'bold',
+        paddingBottom: 4
+    },
+    button: {
+        borderRadius: 8,
+        alignItems: 'stretch',
+        justifyContent: 'left',
+        elevation: 20,
+        height: 38,
+    },
+    arrowIconStyle: {
+        alignItems: 'flex-end',
+        paddingTop: 4,
+        paddingRight: 6,
+        paddingBottom: 6
+    },
     plusIconStyle: {
         alignItems: 'flex-end',
         paddingTop: 4,
         paddingRight: 5,
         paddingBottom: 4,
-    }
+    },
+    divider: {
+        height: 1,
+        backgroundColor: 'grey',
+        marginLeft: 10,
+        marginRight: 10,
+    },
+    dropdownTextStyle: {
+        color: 'black',
+        paddingLeft: 40,
+        fontSize: 15,
+        padding: 7
+    },
 });
 
 export default PriorityCard;

@@ -3,22 +3,18 @@ import { StyleSheet } from 'react-native';
 export const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'ghostwhite'
     },
-   // content: {
-  // //     backgroundColor: 'white'
- //   },
     // TASKS screen name.
     screenContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'ghostwhite'
+        backgroundColor: 'ghostwhite' 
     },
     notificationText: {
         fontSize: 26,
         fontWeight: 'bold',
-        //backgroundColor: 'yellow'
     },
     // Tasks list styling.
     list: {

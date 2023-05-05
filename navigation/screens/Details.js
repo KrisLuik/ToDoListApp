@@ -23,6 +23,7 @@ const Details= ({route, navigation}) =>{
 };
 
 export default Details;
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,

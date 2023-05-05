@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+/*import React, { useState} from 'react';
 import {StyleSheet, View, Text, TextInput, Button } from 'react-native';
 import { globalStyles } from '../styles/Global';
 
@@ -13,7 +13,7 @@ export default function AddToDo({submitHandler}){
         <View style={globalStyles.addItemContainer}>
             <View>
                 <TextInput
-                style={globalStyles.input}
+                style={styles.input}
                 placeholder='New Task'
                 onChangeText={changeHandler}
                 /> 
@@ -24,3 +24,10 @@ export default function AddToDo({submitHandler}){
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    input: {
+        color: 'black'
+    }
+})
+*/

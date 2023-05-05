@@ -30,9 +30,9 @@ const BottomTabNavigator = () => {
                         }
                         return <IonIcons name={iconName} size={size} color={color} />
                     },
-                    tabBarStyle: { backgroundColor: '#6f96e9', height: 92, paddingTop: 12},
-                    tabBarActiveTintColor: 'navy',
-                    tabBarInactiveTintColor: 'white',
+                    tabBarStyle: { backgroundColor: 'rgba(211, 211, 211, 0.3)', height: 92, paddingTop: 12},
+                    tabBarActiveTintColor: '#464655',
+                    tabBarInactiveTintColor: 'grey',//'rgba(181, 178, 194, 0.9)',
                     tabBarLabelStyle: { paddingBottom: 7, fontSize: 12 }
                 })}
             >
