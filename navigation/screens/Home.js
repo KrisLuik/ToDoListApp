@@ -42,7 +42,26 @@ const Home = ({ navigation }) => {
         setLowPriorityTasks(newTasks);
       }
     }, 200)
-  
+
+  };
+
+  const handleUpdateTaskPress = (taskKey, updatedTask, priority) => {
+    if (priority === 'High') {
+      const updatedTasks = highPriorityTasks.map((task, index) =>
+        index === taskKey ? updatedTask : task
+      );
+      setHighPriorityTasks(updatedTasks);
+    } else if (priority === 'Medium') {
+      const updatedTasks = mediumPriorityTasks.map((task, index) =>
+        index === taskKey ? updatedTask : task
+      );
+      setMediumPriorityTasks(updatedTasks);
+    } else if (priority === 'Low') {
+      const updatedTasks = lowPriorityTasks.map((task, index) =>
+        index === taskKey ? updatedTask : task
+      );
+      setLowPriorityTasks(updatedTasks);
+    }
   };
 
   return (
@@ -55,6 +74,7 @@ const Home = ({ navigation }) => {
           onAddPress={addHighPriorityTask}
           onViewAllPress={() => Details('High')}
           onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'High')}
+          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'High')}
         />
         <PriorityCard
           title="Medium Priority"
@@ -62,13 +82,15 @@ const Home = ({ navigation }) => {
           onAddPress={addMediumPriorityTask}
           onViewAllPress={() => Details('Medium')}
           onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Medium')}
-        />
+          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'Medium')}
+       />
         <PriorityCard
           title="Low Priority"
           tasks={lowPriorityTasks}
           onAddPress={addLowPriorityTask}
           onViewAllPress={() => Details('Low')}
           onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Low')}
+          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'Low')}
         />
       </ScrollView>
     </View>

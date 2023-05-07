@@ -4,11 +4,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Ionicons } from '@expo/vector-icons';
 import CustomCheckbox from './Checkbox';
 import TaskModal from './TaskModal';
+import TaskEditModal from './TaskEditModal';
 
-const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPress }) => {
+const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPress, onUpdateTaskPress }) => {
     const [expanded, setExpanded] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [editingTaskKey, setEditingTaskKey] = useState(null);
 
     const toggleExpand = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -28,8 +31,22 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
         setInputValue('');
         closeModal();
     };
-    const handleCheckboxPress = (taskKey,priority) => {
+    const handleCheckboxPress = (taskKey, priority) => {
         onCheckboxPress(taskKey, priority);
+    };
+
+    const handleTaskPress = (taskKey) => {
+        setEditingTaskKey(taskKey);
+        setInputValue(tasks[taskKey]);
+        setEditModalVisible(true);
+    };
+
+    const handleTaskUpdate = (taskKey, updatedTask) => {
+        onUpdateTaskPress(taskKey, updatedTask);
+    };
+
+    const closeEditModal = () => {
+        setEditModalVisible(false);
     };
 
     const displayedTasks = expanded ? tasks : tasks.slice(0, 3);
@@ -84,6 +101,7 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                                 priority={title}
                                 isChecked={task.isChecked}
                                 onCheckboxPress={handleCheckboxPress}
+                                onPress={handleTaskPress}
                             />
                             <View style={styles.divider} />
                         </View>
@@ -103,6 +121,14 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                     inputValue={inputValue}
                     setInputValue={setInputValue}
                     handleSubmit={handleSubmit}
+                />
+                <TaskEditModal
+                    modalVisible={editModalVisible}
+                    closeModal={closeEditModal}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    taskKey={editingTaskKey}
+                    handleUpdateTaskSubmit={handleTaskUpdate}
                 />
             </View>
 
