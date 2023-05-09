@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, LayoutAnimation } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -5,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CustomCheckbox from './Checkbox';
 import TaskModal from './TaskModal';
 import TaskEditModal from './TaskEditModal';
+import usePriorityStyles from '../components/UsePriorityStyles';
 
 const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPress, onUpdateTaskPress }) => {
     const [expanded, setExpanded] = useState(false);
@@ -12,6 +14,8 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
     const [inputValue, setInputValue] = useState('');
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [editingTaskKey, setEditingTaskKey] = useState(null);
+
+    const {color, containerColor } = usePriorityStyles(title);
 
     const toggleExpand = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -51,37 +55,11 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
 
     const displayedTasks = expanded ? tasks : tasks.slice(0, 3);
 
-    const priorityColor = (title) => {
-        switch (title) {
-            case 'High Priority':
-                return { backgroundColor: 'rgba(249, 23, 43, 1) ' }; // Red 
-            case 'Medium Priority':
-                return { backgroundColor: 'rgba(250,185,0, 1)' }; // Yellow  
-            case 'Low Priority':
-                return { backgroundColor: 'rgba(82,196,26,1)' }; // Green 
-            default:
-                return {};
-        }
-    };
-
-    const priorityContainerColor = (title) => {
-        switch (title) {
-            case 'High Priority':
-                return { backgroundColor: 'rgba(255,24,12, 0.1)' }; // Pastel Red
-            case 'Medium Priority':
-                return { backgroundColor: 'rgba(250,172,20, 0.1)' }; // Pastel Yellow 
-            case 'Low Priority':
-                return { backgroundColor: 'rgba(82,196,26, 0.1)' }; // Pastel Green
-            default:
-                return {};
-        }
-    };
-
     return (
         <View>
-            <View style={[styles.priorityContainer, priorityContainerColor(title)]}>
+            <View style={[styles.priorityContainer, containerColor]}>
                 <TouchableOpacity
-                    style={[styles.button, priorityColor(title)]}
+                    style={[styles.button, color]}
                     onPress={toggleExpand}>
                     <View style={styles.titlePlusContainer}>
                         <Text style={styles.buttonTextStyle}>{title}</Text>
