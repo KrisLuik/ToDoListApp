@@ -3,12 +3,12 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
-const CustomCheckbox = ({ task, taskKey, priority, isChecked, onCheckboxPress, onPress }) => {
+const CustomCheckbox = ({ task, taskId, priority, isChecked, onCheckboxPress, onPress }) => {
     const [checked, setChecked] = useState(isChecked);
 
     const toggleCheckBox = () => {
         setChecked(!checked);
-        onCheckboxPress(taskKey, priority);
+        onCheckboxPress(taskId, priority);
     };
 
     return (
@@ -20,7 +20,7 @@ const CustomCheckbox = ({ task, taskKey, priority, isChecked, onCheckboxPress, o
                     <Ionicons name="square-outline" size={24} color="black" />
                 )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => onPress(taskKey)} style={styles.textContainer}>
+            <TouchableOpacity onPress={() => onPress(taskId)} style={styles.textContainer}>
                 <Text style={styles.taskText}>{task}</Text>
             </TouchableOpacity>
         </View>

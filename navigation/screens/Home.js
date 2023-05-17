@@ -3,23 +3,26 @@ import { View, Text, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, Touc
 import { globalStyles } from '../../styles/Global';
 import PriorityCard from '../../shared/PriorityCard';
 import Header from '../../components/Header';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ navigation }) => {
 
   const [highPriorityTasks, setHighPriorityTasks] = useState([]);
   const [mediumPriorityTasks, setMediumPriorityTasks] = useState([]);
   const [lowPriorityTasks, setLowPriorityTasks] = useState([]);
-
+  
   const addHighPriorityTask = (task) => {
-    setHighPriorityTasks([...highPriorityTasks, task]);
+    setHighPriorityTasks([...highPriorityTasks, { id: uuidv4(), task }]);
+  
   };
 
   const addMediumPriorityTask = (task) => {
-    setMediumPriorityTasks([...mediumPriorityTasks, task]);
+    setMediumPriorityTasks([...mediumPriorityTasks, { id: uuidv4(), task }]);
   };
 
   const addLowPriorityTask = (task) => {
-    setLowPriorityTasks([...lowPriorityTasks, task]);
+    setLowPriorityTasks([...lowPriorityTasks, { id: uuidv4(), task }]);
   };
 
   const Details = (priority) => {
@@ -29,23 +32,23 @@ const Home = ({ navigation }) => {
     });
   };
 
-  const handleCheckboxPress = (taskKey, priority) => {
+  const handleCheckboxPress = (taskId, priority) => {
     setTimeout(() => {
       if (priority === 'High') {
-        const newTasks = highPriorityTasks.filter((_, index) => index !== taskKey);
+        const newTasks = highPriorityTasks.filter((task) => task.id !== taskId);
         setHighPriorityTasks(newTasks);
       } else if (priority === 'Medium') {
-        const newTasks = mediumPriorityTasks.filter((_, index) => index !== taskKey);
+        const newTasks = mediumPriorityTasks.filter((task) => task.id !== taskId);
         setMediumPriorityTasks(newTasks);
       } else if (priority === 'Low') {
-        const newTasks = lowPriorityTasks.filter((_, index) => index !== taskKey);
+        const newTasks = lowPriorityTasks.filter((task) => task.id !== taskId);
         setLowPriorityTasks(newTasks);
       }
     }, 200)
 
   };
 
-  const handleUpdateTaskPress = (taskKey, updatedTask, priority) => {
+  const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
     if (priority === 'High') {
       const updatedTasks = highPriorityTasks.map((task, index) =>
         index === taskKey ? updatedTask : task
@@ -73,24 +76,24 @@ const Home = ({ navigation }) => {
           tasks={highPriorityTasks}
           onAddPress={addHighPriorityTask}
           onViewAllPress={() => Details('High')}
-          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'High')}
-          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'High')}
+          onCheckboxPress={(taskId) => handleCheckboxPress(taskId, 'High')}
+          onUpdateTaskPress={(taskId, updatedTask) => handleUpdateTaskPress(taskId, updatedTask, 'High')}
         />
         <PriorityCard
           title="Medium Priority"
           tasks={mediumPriorityTasks}
           onAddPress={addMediumPriorityTask}
           onViewAllPress={() => Details('Medium')}
-          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Medium')}
-          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'Medium')}
+          onCheckboxPress={(taskId) => handleCheckboxPress(taskId, 'Medium')}
+          onUpdateTaskPress={(taskId, updatedTask) => handleUpdateTaskPress(taskId, updatedTask, 'Medium')}
        />
         <PriorityCard
           title="Low Priority"
           tasks={lowPriorityTasks}
           onAddPress={addLowPriorityTask}
           onViewAllPress={() => Details('Low')}
-          onCheckboxPress={(taskKey) => handleCheckboxPress(taskKey, 'Low')}
-          onUpdateTaskPress={(taskKey, updatedTask) => handleUpdateTaskPress(taskKey, updatedTask, 'Low')}
+          onCheckboxPress={(taskId) => handleCheckboxPress(taskId, 'Low')}
+          onUpdateTaskPress={(taskId, updatedTask) => handleUpdateTaskPress(taskId, updatedTask, 'Low')}
         />
       </ScrollView>
     </View>

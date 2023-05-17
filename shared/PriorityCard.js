@@ -35,18 +35,18 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
         setInputValue('');
         closeModal();
     };
-    const handleCheckboxPress = (taskKey, priority) => {
-        onCheckboxPress(taskKey, priority);
+    const handleCheckboxPress = (taskId, priority) => {
+        onCheckboxPress(taskId, priority);
     };
 
-    const handleTaskPress = (taskKey) => {
-        setEditingTaskKey(taskKey);
-        setInputValue(tasks[taskKey]);
+    const handleTaskPress = (taskId) => {
+        setEditingTaskKey(taskId);
+        setInputValue(tasks[taskId]);
         setEditModalVisible(true);
     };
 
-    const handleTaskUpdate = (taskKey, updatedTask) => {
-        onUpdateTaskPress(taskKey, updatedTask);
+    const handleTaskUpdate = (taskId, updatedTask) => {
+        onUpdateTaskPress(taskId, updatedTask);
     };
 
     const closeEditModal = () => {
@@ -71,11 +71,11 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                     </View>
                 </TouchableOpacity>
                 <View>
-                    {displayedTasks.map((task, index) => (
-                        <View key={index}>
+                    {displayedTasks.map((task) => (
+                        <View key={task.id}>
                             <CustomCheckbox
-                                task={task}
-                                taskKey={index}
+                                task={task.task}
+                                taskId={task.id}
                                 priority={title}
                                 isChecked={task.isChecked}
                                 onCheckboxPress={handleCheckboxPress}
