@@ -15,7 +15,7 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [editingTaskKey, setEditingTaskKey] = useState(null);
 
-    const {color, containerColor } = usePriorityStyles(title);
+    const { color, containerColor } = usePriorityStyles(title);
 
     const toggleExpand = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -40,14 +40,23 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
     };
 
     const handleTaskPress = (taskId) => {
+        const taskToEdit = tasks.find(task => task.id === taskId);
         setEditingTaskKey(taskId);
-        setInputValue(tasks[taskId]);
+        setInputValue(taskToEdit ? taskToEdit.task : '');
         setEditModalVisible(true);
-    };
 
+        //  setEditingTaskKey(taskId);
+        //  setInputValue(tasks[taskId]);
+        //   setEditModalVisible(true);
+    };
     const handleTaskUpdate = (taskId, updatedTask) => {
         onUpdateTaskPress(taskId, updatedTask);
     };
+
+
+    // const handleTaskUpdate = (taskId, updatedTask) => {
+    //   onUpdateTaskPress(taskId, updatedTask);
+    //};
 
     const closeEditModal = () => {
         setEditModalVisible(false);
@@ -103,10 +112,14 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                 <TaskEditModal
                     modalVisible={editModalVisible}
                     closeModal={closeEditModal}
+                    tasks={tasks} // Passing tasks here 
+                    editingTaskKey={editingTaskKey}
+                    //  setInputValue={setInputValue}
+                    handleUpdateTaskSubmit={handleTaskUpdate}
                     inputValue={inputValue}
                     setInputValue={setInputValue}
-                    taskKey={editingTaskKey}
-                    handleUpdateTaskSubmit={handleTaskUpdate}
+                //taskKey={editingTaskKey}
+                //handleUpdateTaskSubmit={handleTaskUpdate}
                 />
             </View>
 

@@ -48,20 +48,26 @@ const Home = ({ navigation }) => {
 
   };
 
+  /*
+    In this updated function, the map function checks 
+    each task's id property against the provided taskId 
+    instead of its index. If the ids match, it replaces
+    the task with the updatedTask
+  */
   const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
     if (priority === 'High') {
-      const updatedTasks = highPriorityTasks.map((task, index) =>
-        index === taskKey ? updatedTask : task
+      const updatedTasks = highPriorityTasks.map((task) =>
+        task.id === taskId ? { id: taskId, task: updatedTask } : task
       );
       setHighPriorityTasks(updatedTasks);
     } else if (priority === 'Medium') {
-      const updatedTasks = mediumPriorityTasks.map((task, index) =>
-        index === taskKey ? updatedTask : task
+      const updatedTasks = mediumPriorityTasks.map((task) =>
+        task.id === taskId ? { id: taskId, task: updatedTask } : task
       );
       setMediumPriorityTasks(updatedTasks);
     } else if (priority === 'Low') {
-      const updatedTasks = lowPriorityTasks.map((task, index) =>
-        index === taskKey ? updatedTask : task
+      const updatedTasks = lowPriorityTasks.map((task) =>
+        task.id === taskId ? { id: taskId, task: updatedTask } : task
       );
       setLowPriorityTasks(updatedTasks);
     }
