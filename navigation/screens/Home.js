@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
     setTimeout(() => {
       dispatch({
         type: 'REMOVE_TASK',
-        priority: priority + 'PriorityTasks',
+        priority,
         taskId
       });
     }, 200);
