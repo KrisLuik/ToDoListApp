@@ -1,5 +1,6 @@
-
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TouchableOpacity, StyleSheet, LayoutAnimation } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,8 +8,17 @@ import CustomCheckbox from './Checkbox';
 import TaskModal from './TaskModal';
 import TaskEditModal from './TaskEditModal';
 import usePriorityStyles from '../components/UsePriorityStyles';
+import TasksContext from '../shared/TasksContext';
 
-const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPress, onUpdateTaskPress }) => {
+const PriorityCard = ({
+    title,
+    tasks,
+    onAddPress,
+    onViewAllPress,
+    onCheckboxPress,
+   // handleCheckboxPress,
+    onUpdateTaskPress
+}) => {
     const [expanded, setExpanded] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -31,32 +41,27 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
     };
 
     const handleSubmit = () => {
-        onAddPress(inputValue);
+        onAddPress({ id: uuidv4(), task: inputValue, isChecked: false });
         setInputValue('');
         closeModal();
     };
+    /*
     const handleCheckboxPress = (taskId, priority) => {
         onCheckboxPress(taskId, priority);
-    };
-
+   };
+*/
     const handleTaskPress = (taskId) => {
         const taskToEdit = tasks.find(task => task.id === taskId);
         setEditingTaskKey(taskId);
         setInputValue(taskToEdit ? taskToEdit.task : '');
         setEditModalVisible(true);
-
-        //  setEditingTaskKey(taskId);
-        //  setInputValue(tasks[taskId]);
-        //   setEditModalVisible(true);
-    };
-    const handleTaskUpdate = (taskId, updatedTask) => {
-        onUpdateTaskPress(taskId, updatedTask);
     };
 
-
-    // const handleTaskUpdate = (taskId, updatedTask) => {
-    //   onUpdateTaskPress(taskId, updatedTask);
-    //};
+    const handleTaskUpdate = () => {
+        onUpdateTaskPress(editingTaskKey, { task: inputValue, isChecked: false });
+        setInputValue('');
+        closeEditModal();
+    };
 
     const closeEditModal = () => {
         setEditModalVisible(false);
@@ -87,7 +92,7 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                                 taskId={task.id}
                                 priority={title}
                                 isChecked={task.isChecked}
-                                onCheckboxPress={handleCheckboxPress}
+                                onCheckboxPress={onCheckboxPress}
                                 onPress={handleTaskPress}
                             />
                             <View style={styles.divider} />
@@ -112,21 +117,14 @@ const PriorityCard = ({ title, tasks, onAddPress, onViewAllPress, onCheckboxPres
                 <TaskEditModal
                     modalVisible={editModalVisible}
                     closeModal={closeEditModal}
-                    tasks={tasks} // Passing tasks here 
-                    editingTaskKey={editingTaskKey}
-                    //  setInputValue={setInputValue}
-                    handleUpdateTaskSubmit={handleTaskUpdate}
                     inputValue={inputValue}
                     setInputValue={setInputValue}
-                //taskKey={editingTaskKey}
-                //handleUpdateTaskSubmit={handleTaskUpdate}
+                    handleSubmit={handleTaskUpdate}
                 />
             </View>
-
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     priorityContainer: {
         backgroundColor: 'white',

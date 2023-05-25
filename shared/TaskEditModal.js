@@ -3,29 +3,22 @@ import { View, TextInput, Modal, StyleSheet, Button } from 'react-native';
 import { useEffect } from 'react';
 
 const TaskEditModal = ({ modalVisible, inputValue, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskSubmit }) => {
-  useEffect(() => {
-    if(editingTaskKey != null) {
-      const taskToEdit = tasks.find(task => task.id === editingTaskKey);
-      if(taskToEdit) {
-        setInputValue(taskToEdit.task);
-      }
-    }
-  }, [editingTaskKey, tasks]);
-
-  const handleEditSubmit = () => {
-    handleUpdateTaskSubmit(editingTaskKey, inputValue);
-    setInputValue('');
-    closeModal();
-};
-/*
-const TaskEditModal = ({ modalVisible, closeModal, inputValue, setInputValue, taskId, handleUpdateTaskSubmit }) => {
+    useEffect(() => {
+        if (editingTaskKey != null) {
+            const taskToEdit = tasks.find(task => task.id === editingTaskKey);
+            if (taskToEdit) {
+                setInputValue(taskToEdit.task);
+            }
+        }
+    }, [editingTaskKey, tasks]);
 
     const handleEditSubmit = () => {
-        handleUpdateTaskSubmit(taskId, inputValue);
-        setInputValue('');
-        closeModal();
+        if (editingTaskKey != null) {
+            handleUpdateTaskSubmit(editingTaskKey, inputValue);
+            setInputValue('');
+            closeModal();
+        }
     };
-*/
     return (
         <Modal
             animationType="slide"
