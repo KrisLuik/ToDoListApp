@@ -49,15 +49,26 @@ const Home = ({ navigation }) => {
       });
     }, 200);
   };
-
+  
   const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
     dispatch({
       type: 'UPDATE_TASK',
       priority: priority + 'PriorityTasks',
-      taskId,
-      updatedTask
+      taskId: taskId,
+      updatedTask: updatedTask
     });
   };
+
+  /*
+    const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
+      dispatch({
+        type: 'UPDATE_TASK',
+        priority: priority + 'PriorityTasks',
+        taskId,
+        updatedTask
+      });
+    };
+    */
   return (
     <View style={globalStyles.container}>
       <ScrollView>

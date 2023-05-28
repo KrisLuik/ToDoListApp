@@ -7,12 +7,26 @@ import TasksContext from '../../shared/TasksContext';
 
 const Details = ({ route, navigation }) => {
   const { priority } = route.params;
-  const { state, handleCheckboxPress } = useContext(TasksContext);
+  const { state, dispatch, handleCheckboxPress } = useContext(TasksContext);
 
   const tasks = state[`${priority}PriorityTasks`]; // Fetch tasks based on priority
 
   const handlePress = (taskId) => {
-    // handle task press here
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          isChecked: !task.isChecked
+        };
+      } else {
+        return task;
+      }
+    });
+    dispatch({
+      type: 'UPDATE_TASK',
+      priority: `${priority}PriorityTasks`,
+      tasks: updatedTasks
+    });
   };
 
   const renderItem = ({ item }) => (
@@ -21,6 +35,7 @@ const Details = ({ route, navigation }) => {
         task={item.task}
         taskId={item.id}
         priority={priority}
+        isChecked={item.isChecked}
         onCheckboxPress={() => handleCheckboxPress(priority, item.id)}
         onPress={handlePress}
       />

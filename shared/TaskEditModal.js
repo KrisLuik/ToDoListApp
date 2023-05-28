@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, TextInput, Modal, StyleSheet, Button } from 'react-native';
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import TasksContext from './TasksContext';
 
-const TaskEditModal = ({ modalVisible, inputValue, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskSubmit }) => {
+
+const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskPress }) => {
+    const { dispatch } = useContext(TasksContext);
     useEffect(() => {
         if (editingTaskKey != null) {
             const taskToEdit = tasks.find(task => task.id === editingTaskKey);
@@ -12,9 +16,9 @@ const TaskEditModal = ({ modalVisible, inputValue, closeModal, tasks, editingTas
         }
     }, [editingTaskKey, tasks]);
 
-    const handleEditSubmit = () => {
+  const handleEditSubmit = () => {
         if (editingTaskKey != null) {
-            handleUpdateTaskSubmit(editingTaskKey, inputValue);
+            handleUpdateTaskPress(editingTaskKey, inputValue, priority);
             setInputValue('');
             closeModal();
         }

@@ -16,8 +16,9 @@ const PriorityCard = ({
     onAddPress,
     onViewAllPress,
     onCheckboxPress,
-   // handleCheckboxPress,
-    onUpdateTaskPress
+    // handleCheckboxPress,
+    onUpdateTaskPress,
+    handleUpdateTaskPress//added
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -118,8 +119,10 @@ const PriorityCard = ({
                     modalVisible={editModalVisible}
                     closeModal={closeEditModal}
                     inputValue={inputValue}
+                    tasks={tasks}
+                    editingTaskKey={editingTaskKey}
                     setInputValue={setInputValue}
-                    handleSubmit={handleTaskUpdate}
+                    handleUpdateTaskPress={handleTaskUpdate}
                 />
             </View>
         </View>
