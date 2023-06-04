@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useContext } from 'react';
 import TasksContext from './TasksContext';
 
-
 const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskPress }) => {
     const { dispatch } = useContext(TasksContext);
     useEffect(() => {
@@ -16,13 +15,14 @@ const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, 
         }
     }, [editingTaskKey, tasks]);
 
-  const handleEditSubmit = () => {
+    const handleEditSubmit = () => {
         if (editingTaskKey != null) {
             handleUpdateTaskPress(editingTaskKey, inputValue, priority);
             setInputValue('');
             closeModal();
         }
     };
+
     return (
         <Modal
             animationType="slide"

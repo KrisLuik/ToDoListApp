@@ -24,4 +24,5 @@ const tasksReducer = (state, action) => {
             throw new Error(`Unknown action: ${action.type}`);
     }
 };
+
 export default tasksReducer;

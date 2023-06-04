@@ -17,9 +17,17 @@ export const TasksProvider = ({ children }) => {
             dispatch({ type: 'REMOVE_TASK', priority, taskId });
         }, 200);
     };
+    const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
+        dispatch({
+          type: 'UPDATE_TASK',
+          priority: priority + 'PriorityTasks',
+          taskId: taskId,
+          updatedTask: { task: updatedTask }
+        });
+      };
 
     return (
-        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress }}>
+        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress, handleUpdateTaskPress }}>
             {children}
         </TasksContext.Provider>
     );

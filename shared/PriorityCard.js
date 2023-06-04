@@ -16,9 +16,7 @@ const PriorityCard = ({
     onAddPress,
     onViewAllPress,
     onCheckboxPress,
-    // handleCheckboxPress,
     onUpdateTaskPress,
-    handleUpdateTaskPress//added
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
@@ -46,11 +44,7 @@ const PriorityCard = ({
         setInputValue('');
         closeModal();
     };
-    /*
-    const handleCheckboxPress = (taskId, priority) => {
-        onCheckboxPress(taskId, priority);
-   };
-*/
+
     const handleTaskPress = (taskId) => {
         const taskToEdit = tasks.find(task => task.id === taskId);
         setEditingTaskKey(taskId);
@@ -123,6 +117,7 @@ const PriorityCard = ({
                     editingTaskKey={editingTaskKey}
                     setInputValue={setInputValue}
                     handleUpdateTaskPress={handleTaskUpdate}
+
                 />
             </View>
         </View>

@@ -4,7 +4,6 @@ import { globalStyles } from '../../styles/Global';
 import PriorityCard from '../../shared/PriorityCard';
 import Header from '../../components/Header';
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 import TasksContext from '../../shared/TasksContext';
 
 const Home = ({ navigation }) => {
@@ -49,7 +48,7 @@ const Home = ({ navigation }) => {
       });
     }, 200);
   };
-  
+
   const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
     dispatch({
       type: 'UPDATE_TASK',
@@ -58,17 +57,6 @@ const Home = ({ navigation }) => {
       updatedTask: updatedTask
     });
   };
-
-  /*
-    const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
-      dispatch({
-        type: 'UPDATE_TASK',
-        priority: priority + 'PriorityTasks',
-        taskId,
-        updatedTask
-      });
-    };
-    */
   return (
     <View style={globalStyles.container}>
       <ScrollView>

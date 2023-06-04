@@ -2,31 +2,25 @@ import * as React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 //import { globalStyles } from '../../styles/Global';
 import CustomCheckbox from '../../shared/Checkbox';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import TasksContext from '../../shared/TasksContext';
+import TaskEditModal from '../../shared/TaskEditModal';
+
 
 const Details = ({ route, navigation }) => {
   const { priority } = route.params;
-  const { state, dispatch, handleCheckboxPress } = useContext(TasksContext);
+  const { state, handleCheckboxPress, handleUpdateTaskPress } = useContext(TasksContext);
 
-  const tasks = state[`${priority}PriorityTasks`]; // Fetch tasks based on priority
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [editingTaskKey, setEditingTaskKey] = useState(null);
 
-  const handlePress = (taskId) => {
-    const updatedTasks = tasks.map(task => {
-      if (task.id === taskId) {
-        return {
-          ...task,
-          isChecked: !task.isChecked
-        };
-      } else {
-        return task;
-      }
-    });
-    dispatch({
-      type: 'UPDATE_TASK',
-      priority: `${priority}PriorityTasks`,
-      tasks: updatedTasks
-    });
+  const tasks = state[priority + 'PriorityTasks']
+
+  const closeModal = () => {
+    setInputValue('');
+    setEditingTaskKey(null);
+    setModalVisible(false);
   };
 
   const renderItem = ({ item }) => (
@@ -37,9 +31,24 @@ const Details = ({ route, navigation }) => {
         priority={priority}
         isChecked={item.isChecked}
         onCheckboxPress={() => handleCheckboxPress(priority, item.id)}
-        onPress={handlePress}
+        onPress={() => {
+          setInputValue(item.task);
+          setEditingTaskKey(item.id);
+          setModalVisible(true);
+        }}
       />
       <View style={styles.divider} />
+      <TaskEditModal
+        modalVisible={modalVisible}
+        tasks={tasks}
+        editingTaskKey={editingTaskKey}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        priority={priority}
+        handleUpdateTaskPress={handleUpdateTaskPress}
+        closeModal={closeModal}
+
+      />
     </View>
   );
   return (
