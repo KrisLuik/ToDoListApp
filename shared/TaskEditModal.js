@@ -1,11 +1,8 @@
 import React from 'react';
 import { View, TextInput, Modal, StyleSheet, Button } from 'react-native';
 import { useEffect } from 'react';
-import { useContext } from 'react';
-import TasksContext from './TasksContext';
 
-const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskPress }) => {
-    const { dispatch } = useContext(TasksContext);
+const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, editingTaskKey, setInputValue, handleUpdateTaskPress, handleSubmit }) => {
     useEffect(() => {
         if (editingTaskKey != null) {
             const taskToEdit = tasks.find(task => task.id === editingTaskKey);
@@ -16,13 +13,14 @@ const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, 
     }, [editingTaskKey, tasks]);
 
     const handleEditSubmit = () => {
-        if (editingTaskKey != null) {
+        if (editingTaskKey !== null) {
             handleUpdateTaskPress(editingTaskKey, inputValue, priority);
-            setInputValue('');
-            closeModal();
+        } else {
+            handleSubmit(priority, inputValue);
         }
+        setInputValue('');
+        closeModal();
     };
-
     return (
         <Modal
             animationType="slide"
@@ -39,7 +37,11 @@ const TaskEditModal = ({ modalVisible, inputValue, priority, closeModal, tasks, 
                         onChangeText={setInputValue}
                     />
                     <View style={styles.modalButtonStyle}>
-                        <Button title="Update" onPress={handleEditSubmit} color='white' />
+                        <Button
+                            title={editingTaskKey !== null ? 'Update' : 'Add'}
+                            onPress={handleEditSubmit}
+                            color="white"
+                        />
                     </View>
                     <View style={styles.modalButtonStyle}>
                         <Button title="Cancel" onPress={closeModal} color='white' />

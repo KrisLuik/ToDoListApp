@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import tasksReducer from '.././components/useReducer';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
     highPriorityTasks: [],
@@ -19,15 +20,23 @@ export const TasksProvider = ({ children }) => {
     };
     const handleUpdateTaskPress = (taskId, updatedTask, priority) => {
         dispatch({
-          type: 'UPDATE_TASK',
-          priority: priority + 'PriorityTasks',
-          taskId: taskId,
-          updatedTask: { task: updatedTask }
+            type: 'UPDATE_TASK',
+            priority: priority + 'PriorityTasks',
+            taskId: taskId,
+            updatedTask: { task: updatedTask }
         });
-      };
+    };
+    const handleSubmit = (priority, task) => {
+        dispatch({
+            type: 'ADD_TASK',
+            priority: priority + 'PriorityTasks',
+            task: { id: uuidv4(), task: task },
+        })
+
+    }
 
     return (
-        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress, handleUpdateTaskPress }}>
+        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress, handleUpdateTaskPress, handleSubmit }}>
             {children}
         </TasksContext.Provider>
     );

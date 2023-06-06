@@ -8,16 +8,8 @@ import CustomCheckbox from './Checkbox';
 import TaskModal from './TaskModal';
 import TaskEditModal from './TaskEditModal';
 import usePriorityStyles from '../components/UsePriorityStyles';
-import TasksContext from '../shared/TasksContext';
 
-const PriorityCard = ({
-    title,
-    tasks,
-    onAddPress,
-    onViewAllPress,
-    onCheckboxPress,
-    onUpdateTaskPress,
-}) => {
+const PriorityCard = ({ title,tasks, onAddPress,onViewAllPress, onCheckboxPress,onUpdateTaskPress }) => {
     const [expanded, setExpanded] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -117,7 +109,6 @@ const PriorityCard = ({
                     editingTaskKey={editingTaskKey}
                     setInputValue={setInputValue}
                     handleUpdateTaskPress={handleTaskUpdate}
-
                 />
             </View>
         </View>

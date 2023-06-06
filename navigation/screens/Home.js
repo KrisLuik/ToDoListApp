@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { globalStyles } from '../../styles/Global';
 import PriorityCard from '../../shared/PriorityCard';
 import Header from '../../components/Header';

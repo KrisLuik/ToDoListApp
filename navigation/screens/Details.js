@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 //import { globalStyles } from '../../styles/Global';
 import CustomCheckbox from '../../shared/Checkbox';
 import { useState, useContext } from 'react';
 import TasksContext from '../../shared/TasksContext';
 import TaskEditModal from '../../shared/TaskEditModal';
-
+import { Ionicons } from '@expo/vector-icons';
 
 const Details = ({ route, navigation }) => {
   const { priority } = route.params;
-  const { state, handleCheckboxPress, handleUpdateTaskPress } = useContext(TasksContext);
+  const { state, handleCheckboxPress, handleUpdateTaskPress, handleSubmit } = useContext(TasksContext);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -46,8 +46,8 @@ const Details = ({ route, navigation }) => {
         setInputValue={setInputValue}
         priority={priority}
         handleUpdateTaskPress={handleUpdateTaskPress}
+        handleSubmit={handleSubmit}
         closeModal={closeModal}
-
       />
     </View>
   );
@@ -59,6 +59,15 @@ const Details = ({ route, navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
+      <View>
+        <TouchableOpacity
+          style={styles.plusIconStyle}
+          onPress={() => {
+            setModalVisible(true);
+          }}>
+          <Ionicons name="add-circle" size={55} color="#6f96e9" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -87,4 +96,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  plusIconStyle: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    marginTop: 155,
+    paddingRight: 5,
+
+  }
 });
