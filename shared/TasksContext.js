@@ -1,6 +1,7 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import tasksReducer from '.././components/useReducer';
 import { v4 as uuidv4 } from 'uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
     highPriorityTasks: [],
@@ -12,6 +13,28 @@ const TasksContext = createContext();
 
 export const TasksProvider = ({ children }) => {
     const [state, dispatch] = useReducer(tasksReducer, initialState);
+
+    useEffect(() => {
+        const loadTasks = async () => {
+            const savedTasks = await AsyncStorage.getItem('tasks');
+            if (savedTasks) {
+                dispatch({ type: 'LOAD_TASKS', payload: JSON.parse(savedTasks) });
+            }
+        };
+
+        loadTasks();
+    }, []);
+
+    useEffect(() => {
+        const saveTasks = async () => {
+            await AsyncStorage.setItem('tasks', JSON.stringify(state));
+        };
+
+        saveTasks();
+    }, [state]);
+
+
+
 
     const handleCheckboxPress = (priority, taskId) => {
         setTimeout(() => {

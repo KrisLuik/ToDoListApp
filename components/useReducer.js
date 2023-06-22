@@ -2,6 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 const tasksReducer = (state, action) => {
     switch (action.type) {
+        case 'LOAD_TASKS': {
+            return action.payload;
+        };
         case 'ADD_TASK':
             return {
                 ...state,

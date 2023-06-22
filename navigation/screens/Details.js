@@ -53,7 +53,7 @@ const Details = ({ route, navigation }) => {
   );
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{priority} Priority</Text>
+      <Text style={styles.title}>{priority} priority</Text>
       <FlatList
         data={tasks}
         renderItem={renderItem}
