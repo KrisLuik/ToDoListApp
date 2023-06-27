@@ -6,6 +6,7 @@ import Home from './screens/Home';
 import Details from './screens/Details';
 import Categories from './screens/Categories';
 import Settings from './screens/Settings';
+import CustomCategoryCard from '../components/CustomCategoryCard';
 
 const HomeStack = createStackNavigator();
 const CategoriesStack = createStackNavigator();
@@ -24,6 +25,7 @@ const CategoriesStackNavigator = () => {
   return (
     <CategoriesStack.Navigator>
       <CategoriesStack.Screen name='CategoriesStack' component={Categories} options={{headerShown: false}}/>
+      <CategoriesStack.Screen name='CustomCategoryCard' component={CustomCategoryCard} options={{headerShown: false}}/>
     </CategoriesStack.Navigator>
   );
 };

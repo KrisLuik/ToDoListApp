@@ -23,6 +23,11 @@ const tasksReducer = (state, action) => {
                     task.id === action.taskId ? { ...task, ...action.updatedTask } : task
                 )
             };
+        case 'ADD_CATEGORY':
+            return {
+                ...state,
+                customCategories: [...state.customCategories, action.category]
+            };
         default:
             throw new Error(`Unknown action: ${action.type}`);
     }

@@ -6,7 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const initialState = {
     highPriorityTasks: [],
     mediumPriorityTasks: [],
-    lowPriorityTasks: []
+    lowPriorityTasks: [],
+    customCategories: []
 };
 
 const TasksContext = createContext();

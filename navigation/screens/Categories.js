@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { globalStyles } from '../../styles/Global';
 import { Ionicons } from '@expo/vector-icons';
 
-
 export default function Categories({ navigation }) {
     return (
         <View style={globalStyles.screenContainer}>
@@ -69,13 +68,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
       },
 });
-/*export default function Categories({navigation}){
-    return (
-     <View style={globalStyles.screenContainer}>
-            <Text style={globalStyles.notificationText}
-                onPress={() => navigation.navigate('Home')}> Categories Screen
-            </Text>
-        </View>
-    );
-}
-*/
