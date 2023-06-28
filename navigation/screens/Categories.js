@@ -1,9 +1,31 @@
-import * as React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { globalStyles } from '../../styles/Global';
 import { Ionicons } from '@expo/vector-icons';
+import TasksContext from '../../shared/TasksContext';
+
+// Need to adjust addCategory card position so it stays bottom right.
 
 export default function Categories({ navigation }) {
+    const { state, dispatch } = useContext(TasksContext);
+
+    const handleLongPress = (category) => {
+        Alert.alert(
+            'Delete Category',
+            'Are you sure you want to delete this category?',
+            [
+                {
+                    text: 'NO',
+                    style: 'cancel',
+                },
+                {
+                    text: 'YES', onPress: () => dispatch({ type: 'DELETE_CATEGORY', category: category.title })
+                },
+            ],
+            { cancelable: true },
+        );
+    };
+
     return (
         <View style={globalStyles.screenContainer}>
             <ScrollView contentContainerStyle={styles.container}>
@@ -25,12 +47,22 @@ export default function Categories({ navigation }) {
                 >
                     <Text style={styles.title}>Low Priority</Text>
                 </TouchableOpacity>
+                {state.customCategories.map(category => (
+                    <TouchableOpacity
+                        key={category.title}  // unique key for each element
+                        style={[styles.card, { backgroundColor: category.color }]}
+                        onPress={() => navigation.navigate('Details', { category: category.title })}
+                        onLongPress={() => handleLongPress(category)}
+                    >
+                        <Text style={styles.title}>{category.title}</Text>
+                    </TouchableOpacity>
+                ))}
                 <TouchableOpacity
                     style={[styles.card, { backgroundColor: '#cccccc' }]}
                     onPress={() => navigation.navigate('CustomCategoryCard')}
                 >
                     <View style={styles.iconContainer}>
-                        <Ionicons name="add-circle" size={48} color='#5C5D67' style={styles.iconStyle}/>
+                        <Ionicons name="add-circle" size={48} color='#5C5D67' style={styles.iconStyle} />
                     </View>
                 </TouchableOpacity>
             </ScrollView>
@@ -45,6 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         paddingTop: 45,
         padding: 16,
+
     },
     card: {
         width: '45%',
@@ -60,11 +93,11 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     iconContainer: {
-        flex: 1,
+       // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-      },
-      iconStyle: {
+    },
+    iconStyle: {
         alignSelf: 'center',
-      },
+    },
 });

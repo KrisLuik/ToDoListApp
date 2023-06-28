@@ -6,7 +6,7 @@ import Home from './screens/Home';
 import Details from './screens/Details';
 import Categories from './screens/Categories';
 import Settings from './screens/Settings';
-import CustomCategoryCard from '../components/CustomCategoryCard';
+import CustomCategoryCard from '../shared/CustomCategoryCard';
 
 const HomeStack = createStackNavigator();
 const CategoriesStack = createStackNavigator();
