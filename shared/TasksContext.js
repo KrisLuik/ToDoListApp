@@ -19,23 +19,22 @@ export const TasksProvider = ({ children }) => {
         const loadTasks = async () => {
             const savedTasks = await AsyncStorage.getItem('tasks');
             if (savedTasks) {
-                dispatch({ type: 'LOAD_TASKS', payload: JSON.parse(savedTasks) });
+                const loadedTasks = JSON.parse(savedTasks);
+                if (!loadedTasks.customCategories) {
+                    loadedTasks.customCategories = [];
+                }
+                dispatch({ type: 'LOAD_TASKS', payload: loadedTasks });
             }
         };
-
         loadTasks();
     }, []);
-
+    
     useEffect(() => {
         const saveTasks = async () => {
             await AsyncStorage.setItem('tasks', JSON.stringify(state));
         };
-
         saveTasks();
     }, [state]);
-
-
-
 
     const handleCheckboxPress = (priority, taskId) => {
         setTimeout(() => {
@@ -56,11 +55,16 @@ export const TasksProvider = ({ children }) => {
             priority: priority + 'PriorityTasks',
             task: { id: uuidv4(), task: task },
         })
-
     }
+    const addCategory = (title, color) =>{
+        dispatch({
+            type: 'ADD_CATEGORY',
+            category: {title: title, color: color }
 
+        })
+    }
     return (
-        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress, handleUpdateTaskPress, handleSubmit }}>
+        <TasksContext.Provider value={{ state, dispatch, handleCheckboxPress, handleUpdateTaskPress, handleSubmit, addCategory }}>
             {children}
         </TasksContext.Provider>
     );

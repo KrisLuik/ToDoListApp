@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
 const tasksReducer = (state, action) => {
+    console.log(state);
     switch (action.type) {
         case 'LOAD_TASKS': {
-            return action.payload;
+            return action.payload ? action.payload : state;
         };
         case 'ADD_TASK':
             return {
@@ -27,6 +28,11 @@ const tasksReducer = (state, action) => {
             return {
                 ...state,
                 customCategories: [...state.customCategories, action.category]
+            };
+        case 'DELETE_CATEGORY':
+            return {
+                ...state,
+                customCategories: state.customCategories.filter(category => category.title !== action.category)
             };
         default:
             throw new Error(`Unknown action: ${action.type}`);
